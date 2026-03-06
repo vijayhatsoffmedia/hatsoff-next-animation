@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { MessageCircle, X } from "lucide-react"
 
@@ -9,12 +9,19 @@ export default function AIChat() {
   const [messages, setMessages] = useState([])
   const [open, setOpen] = useState(false)
 
+  const messagesEndRef = useRef(null)
+
   const answers = {
-    services: "Hatsoff Media offers Graphic Design, Video Editing, Animations, Digital Marketing and Web Development.",
-    pricing: "Pricing depends on the project. Contact us to get a custom quote for your business.",
-    portfolio: "You can view our portfolio in the Portfolio section of the website.",
-    contact: "You can contact Hatsoff Media via the contact page or WhatsApp for quick response.",
-    location: "Hatsoff Media operates from Chennai and works with clients worldwide."
+    services:
+      "Hatsoff Media offers Graphic Design, Video Editing, Animations, Digital Marketing and Web Development.",
+    pricing:
+      "Pricing depends on the project. Contact us to get a custom quote for your business.",
+    portfolio:
+      "You can view our portfolio in the Portfolio section of the website.",
+    contact:
+      "You can contact Hatsoff Media via the contact page or WhatsApp for quick response.",
+    location:
+      "Hatsoff Media operates from Chennai and works with clients worldwide."
   }
 
   const askQuestion = (question) => {
@@ -51,24 +58,31 @@ export default function AIChat() {
     "Where are you located?"
   ]
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }, [messages])
+
   return (
 
     <>
-      {/* Floating Button */}
+      {/* Floating Chat Button */}
 
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-yellow-400 text-black flex items-center justify-center shadow-lg z-50"
+        className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-[#ffcc00] text-black flex items-center justify-center shadow-xl z-[9999]"
       >
-        {open ? <X /> : <MessageCircle />}
+
+        {open ? <X size={26} /> : <MessageCircle size={26} />}
+
       </motion.button>
 
 
       {/* Chat Window */}
 
       <AnimatePresence>
+
         {open && (
 
           <motion.div
@@ -76,26 +90,32 @@ export default function AIChat() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 80 }}
             transition={{ duration: 0.3 }}
-            className="fixed bottom-24 right-6 w-80 bg-[#111] border border-gray-800 rounded-xl p-4 shadow-2xl z-50"
+            className="fixed bottom-24 right-6 w-80 bg-[#111] border border-gray-800 rounded-xl p-4 shadow-2xl z-[9999]"
           >
 
             {/* Header */}
 
-            <h3 className="font-semibold text-yellow-400 mb-3">
+            <h3 className="font-semibold text-yellow-400 text-lg mb-3">
               Hatsoff Assistant
             </h3>
 
 
-            {/* Messages */}
+            {/* Messages Area */}
 
-            <div className="h-56 overflow-y-auto text-sm space-y-3 mb-4">
+            <div className="h-44 overflow-y-auto text-sm space-y-3 mb-4 text-white pr-1">
+
+              {messages.length === 0 && (
+                <p className="text-gray-400 text-sm">
+                  Ask something about Hatsoff Media 👇
+                </p>
+              )}
 
               {messages.map((m, i) => (
                 <div key={i}>
 
                   {m.user && (
-                    <div className="text-right">
-                      <span className="bg-yellow-400 text-black px-3 py-1 rounded-lg inline-block">
+                    <div className="text-right mb-1">
+                      <span className="bg-[#ffcc00] text-black px-3 py-1 rounded-lg inline-block">
                         {m.user}
                       </span>
                     </div>
@@ -103,7 +123,7 @@ export default function AIChat() {
 
                   {m.ai && (
                     <div className="text-left">
-                      <span className="bg-black border border-gray-700 px-3 py-1 rounded-lg inline-block text-gray-300">
+                      <span className="bg-[#1a1a1a] border border-gray-700 px-3 py-1 rounded-lg inline-block text-gray-200">
                         {m.ai}
                       </span>
                     </div>
@@ -111,6 +131,8 @@ export default function AIChat() {
 
                 </div>
               ))}
+
+              <div ref={messagesEndRef} />
 
             </div>
 
@@ -123,7 +145,7 @@ export default function AIChat() {
                 <button
                   key={i}
                   onClick={() => askQuestion(q)}
-                  className="text-left text-sm bg-black border border-gray-700 px-3 py-2 rounded hover:border-yellow-400 transition"
+                  className="text-left text-sm text-gray-200 bg-[#1a1a1a] border border-gray-700 px-3 py-2 rounded-lg hover:border-yellow-400 hover:text-white transition"
                 >
                   {q}
                 </button>
@@ -134,6 +156,7 @@ export default function AIChat() {
           </motion.div>
 
         )}
+
       </AnimatePresence>
 
     </>

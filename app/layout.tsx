@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 import SocialSidebar from "./components/SocialSidebar"
 import AIChat from "./components/AIChat"
+import ScrollTop from "./components/ScrollTop"
 
 export default function RootLayout({
   children,
@@ -18,6 +19,10 @@ export default function RootLayout({
         <SocialSidebar />
 
         <AIChat />
+
+
+        <ScrollTop />
+
         {children}
 
         <Footer />

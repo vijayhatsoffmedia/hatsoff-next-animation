@@ -1,9 +1,11 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { PenTool, Film, Globe } from "lucide-react"
 
 const services = [
   {
+    icon: PenTool,
     title: "Graphic Design",
     desc: "Creative visual design solutions that help brands stand out with strong identity and storytelling.",
     items: [
@@ -13,6 +15,7 @@ const services = [
     ]
   },
   {
+    icon: Film,
     title: "Video Production & Motion",
     desc: "Professional video production, editing and motion graphics for brands and creators.",
     items: [
@@ -24,6 +27,7 @@ const services = [
     ]
   },
   {
+    icon: Globe,
     title: "Digital & Web",
     desc: "Complete digital presence solutions including websites, marketing and social media growth.",
     items: [
@@ -38,74 +42,104 @@ export default function Services() {
 
   return (
 
-    <section className="bg-black text-white py-32 px-6 md:px-12">
+    <section className="bg-black text-white py-32 px-6 md:px-12 relative overflow-hidden">
 
-      {/* Title */}
+      {/* background glow */}
 
-      <h2 className="text-4xl md:text-7xl font-bold text-center mb-16 md:mb-24">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-yellow-400/10 blur-[200px]" />
+
+      {/* title */}
+
+      <motion.h2
+        initial={{ opacity:0, y:40 }}
+        whileInView={{ opacity:1, y:0 }}
+        transition={{ duration:0.6 }}
+        className="text-4xl md:text-7xl font-bold text-center mb-20"
+      >
         What We Do
-      </h2>
+      </motion.h2>
 
 
-      {/* Grid */}
+      {/* cards */}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-7xl mx-auto">
 
-        {services.map((service,index)=>(
+        {services.map((service,index)=>{
 
-          <motion.div
-            key={index}
-            whileHover={{ y:-15, scale:1.02 }}
-            transition={{ duration:0.4 }}
-            className="relative overflow-hidden border border-gray-700 rounded-xl p-8 bg-[#0c0c0c] group"
-          >
+          const Icon = service.icon
 
-            {/* Bubble Glow */}
+          return(
 
             <motion.div
-              initial={{ scale:0, opacity:0 }}
-              whileHover={{ scale:3, opacity:0.15 }}
-              transition={{ duration:0.6 }}
-              className="absolute w-40 h-40 bg-yellow-400 rounded-full blur-3xl top-10 left-10"
-            />
+              key={index}
+              initial={{ opacity:0, y:60 }}
+              whileInView={{ opacity:1, y:0 }}
+              transition={{ duration:0.6, delay:index*0.2 }}
+              whileHover={{ y:-15 }}
+              className="group relative rounded-2xl border border-gray-800 bg-[#0a0a0a] p-8 overflow-hidden"
+            >
+
+              {/* hover glow */}
+
+              <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/0 via-yellow-400/0 to-yellow-400/0 group-hover:from-yellow-400/10 group-hover:to-yellow-400/5 transition duration-500"/>
 
 
-            {/* Header */}
+              {/* icon */}
 
-            <div className="flex justify-between items-center mb-6 relative z-10">
+              <motion.div
+                whileHover={{ rotate:8, scale:1.1 }}
+                className="w-14 h-14 flex items-center justify-center rounded-xl bg-yellow-400 text-black mb-6"
+              >
+                <Icon size={28}/>
+              </motion.div>
 
-              <h3 className="text-2xl md:text-3xl font-semibold">
+
+              {/* title */}
+
+              <h3 className="text-2xl font-semibold mb-3 group-hover:text-yellow-400 transition">
                 {service.title}
               </h3>
 
-              <motion.span
-                whileHover={{ x:8 }}
-                className="text-yellow-400 text-2xl"
+
+              {/* description */}
+
+              <p className="text-gray-400 mb-6">
+                {service.desc}
+              </p>
+
+
+              {/* list */}
+
+              <ul className="space-y-2 text-gray-500">
+
+                {service.items.map((item,i)=>(
+                  <li key={i} className="flex items-center gap-2">
+
+                    <span className="w-1.5 h-1.5 bg-yellow-400 rounded-full"/>
+
+                    {item}
+
+                  </li>
+                ))}
+
+              </ul>
+
+
+              {/* arrow */}
+
+              <motion.div
+                initial={{ opacity:0 }}
+                whileHover={{ opacity:1, x:10 }}
+                className="absolute bottom-6 right-6 text-yellow-400 text-xl"
               >
                 →
-              </motion.span>
+              </motion.div>
 
-            </div>
+            </motion.div>
 
+          )
 
-            {/* Description */}
-
-            <p className="text-gray-400 mb-4 relative z-10">
-              {service.desc}
-            </p>
-
-
-            {/* List */}
-
-            <ul className="text-gray-500 space-y-1 relative z-10">
-              {service.items.map((item,i)=>(
-                <li key={i}>• {item}</li>
-              ))}
-            </ul>
-
-          </motion.div>
-
-        ))}
+        })}
 
       </div>
 

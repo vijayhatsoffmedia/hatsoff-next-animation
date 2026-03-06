@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion"
 import ScrambleText from "../components/ScrambleText"
-import Stats from "../components/Stats"
 
 const skills = [
   "Graphic Design",
@@ -11,161 +10,85 @@ const skills = [
   "Brand Identity",
   "Web Development",
   "Digital Marketing",
-  "AI Video Creation",
-  "Social Media Management"
+  "AI Videos",
+  "Social Media"
 ]
 
 const timeline = [
   { year: "2021", text: "Hatsoff Media was founded." },
-  { year: "2022", text: "Started video production services." },
-  { year: "2023", text: "Expanded into web development." },
-  { year: "2024", text: "Serving clients across industries." }
+  { year: "2022", text: "Expanded into video production." },
+  { year: "2023", text: "Started web development services." },
+  { year: "2024", text: "Serving multiple industries." }
 ]
 
 export default function AboutPage() {
+
   return (
-    <main className="bg-black text-white pt-[80px] overflow-hidden">
+
+    <main className="bg-black text-white pt-[90px] overflow-hidden">
 
       {/* HERO */}
-      <section className="min-h-[70vh] flex flex-col justify-center items-center text-center px-6">
+
+      <section className="min-h-[60vh] flex flex-col justify-center items-center text-center px-6 relative">
+
+        <div className="absolute w-[600px] h-[600px] bg-yellow-400/10 blur-[150px] rounded-full"/>
 
         <ScrambleText text="Creative Studio For Modern Brands" />
 
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
+          initial={{opacity:0}}
+          animate={{opacity:1}}
+          transition={{delay:1}}
           className="text-gray-400 mt-6 max-w-2xl"
         >
-          Hatsoff Media helps brands stand out with powerful visual storytelling,
-          cinematic videos, branding and modern digital experiences.
+          Hatsoff Media blends creativity, motion and technology to craft
+          powerful digital experiences for brands.
         </motion.p>
 
       </section>
 
 
-      {/* STATS */}
-      <Stats />
 
+      {/* CREATIVE PROCESS */}
 
-      {/* STORY */}
-      <section className="py-32 px-6 md:px-12 max-w-6xl mx-auto grid md:grid-cols-2 gap-20">
+      <section className="py-24 px-6 md:px-12">
 
-        <motion.div
-          initial={{ opacity: 0, x: -80 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Our Story
-          </h2>
-
-          <p className="text-gray-400 leading-relaxed mb-6">
-            Hatsoff Media started with a vision to transform how brands
-            communicate visually. We combine creativity, technology and
-            storytelling to produce content that moves people.
-          </p>
-
-          <p className="text-gray-400 leading-relaxed">
-            From movie posters to cinematic videos and modern websites,
-            our mission is to help businesses grow with powerful digital
-            experiences.
-          </p>
-
-        </motion.div>
-
-        {/* Animated Card */}
-        <motion.div
-          initial={{ opacity: 0, x: 80 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          whileHover={{ scale: 1.05 }}
-          className="bg-[#111] border border-gray-800 rounded-xl p-12"
-        >
-
-          <h3 className="text-2xl font-semibold mb-6">
-            What We Do
-          </h3>
-
-          <ul className="space-y-3 text-gray-400">
-            <li>• Graphic Designing</li>
-            <li>• Motion Graphics</li>
-            <li>• Video Editing</li>
-            <li>• Movie Poster Designing</li>
-            <li>• AI Video Creation</li>
-            <li>• Website Development</li>
-          </ul>
-
-        </motion.div>
-
-      </section>
-
-
-      {/* SKILLS MARQUEE */}
-      <section className="py-20 overflow-hidden border-y border-gray-800">
-
-        <motion.div
-          animate={{ x: ["0%", "-100%"] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="flex gap-20 whitespace-nowrap text-3xl md:text-5xl font-semibold"
-        >
-          {skills.map((skill, index) => (
-            <span key={index} className="text-yellow-400">
-              {skill}
-            </span>
-          ))}
-
-          {skills.map((skill, index) => (
-            <span key={index + 100} className="text-yellow-400">
-              {skill}
-            </span>
-          ))}
-        </motion.div>
-
-      </section>
-
-
-      {/* WHY CHOOSE US */}
-      <section className="py-32 px-6 md:px-12">
-
-        <h2 className="text-4xl md:text-6xl font-bold text-center mb-20">
-          Why Brands Choose Hatsoff
+        <h2 className="text-5xl font-bold text-center mb-20">
+          Our Creative Process
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-10">
 
           {[
-            {
-              title: "Creative Thinking",
-              desc: "Every project starts with fresh ideas and bold creativity."
-            },
-            {
-              title: "Modern Technology",
-              desc: "We combine design tools, AI and motion graphics."
-            },
-            {
-              title: "Results Driven",
-              desc: "Our goal is to help brands grow and stand out."
-            }
-          ].map((item, index) => (
+            {title:"Research",desc:"Understanding the brand and audience"},
+            {title:"Concept",desc:"Developing strong creative ideas"},
+            {title:"Production",desc:"Design, animation and development"},
+            {title:"Launch",desc:"Delivering polished experiences"}
+          ].map((step,i)=>(
+            
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 80 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.2 }}
-              whileHover={{ y: -10 }}
-              className="bg-[#111] p-12 border border-gray-800 rounded-xl"
+              key={i}
+              initial={{opacity:0,y:60}}
+              whileInView={{opacity:1,y:0}}
+              transition={{delay:i*0.2}}
+              whileHover={{scale:1.05}}
+              className="relative p-10 bg-[#111] border border-gray-800 rounded-xl"
             >
 
-              <h3 className="text-xl font-semibold mb-4">
-                {item.title}
+              <span className="text-yellow-400 text-4xl font-bold">
+                0{i+1}
+              </span>
+
+              <h3 className="text-xl font-semibold mt-4 mb-2">
+                {step.title}
               </h3>
 
-              <p className="text-gray-400">
-                {item.desc}
+              <p className="text-gray-400 text-sm">
+                {step.desc}
               </p>
 
             </motion.div>
+
           ))}
 
         </div>
@@ -173,43 +96,85 @@ export default function AboutPage() {
       </section>
 
 
-      {/* ADVANCED TIMELINE */}
-      <section className="py-40 bg-[#0a0a0a]">
 
-        <h2 className="text-5xl md:text-7xl font-bold text-center mb-32">
+      {/* SKILLS ORBIT */}
+
+      <section className="py-28 relative overflow-hidden">
+
+        <h2 className="text-5xl font-bold text-center mb-20">
+          Our Expertise
+        </h2>
+
+        <div className="relative w-[500px] h-[500px] mx-auto">
+
+          {skills.map((skill,i)=>{
+
+            const angle=(i/skills.length)*Math.PI*2
+            const x=Math.cos(angle)*180
+            const y=Math.sin(angle)*180
+
+            return(
+
+              <motion.div
+                key={i}
+                initial={{opacity:0,scale:0}}
+                whileInView={{opacity:1,scale:1}}
+                animate={{x,y}}
+                transition={{duration:0.8}}
+                className="absolute left-1/2 top-1/2
+                -translate-x-1/2 -translate-y-1/2
+                px-5 py-2 bg-[#111] border border-gray-700
+                rounded-full text-yellow-400"
+              >
+
+                {skill}
+
+              </motion.div>
+
+            )
+
+          })}
+
+        </div>
+
+      </section>
+
+
+
+      {/* TIMELINE */}
+
+      <section className="py-32 bg-[#0a0a0a]">
+
+        <h2 className="text-5xl font-bold text-center mb-24">
           Our Journey
         </h2>
 
         <div className="relative max-w-4xl mx-auto">
 
           {/* vertical line */}
-          <motion.div
-            initial={{ height: 0 }}
-            whileInView={{ height: "100%" }}
-            transition={{ duration: 1.2 }}
-            className="absolute left-1/2 top-0 w-[2px] bg-gray-700 -translate-x-1/2"
-          />
 
-          {timeline.map((item, index) => {
+          <div className="absolute left-1/2 top-0 w-[2px] bg-gray-700 h-full -translate-x-1/2"/>
 
-            const isLeft = index % 2 === 0
+          {timeline.map((item,index)=>{
 
-            return (
+            const left=index%2===0
+
+            return(
+
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 80 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className={`relative flex items-center mb-24 ${
-                  isLeft ? "justify-start" : "justify-end"
+                initial={{opacity:0,y:60}}
+                whileInView={{opacity:1,y:0}}
+                transition={{duration:0.6}}
+                className={`flex items-center mb-20 ${
+                  left?"justify-start":"justify-end"
                 }`}
               >
 
-                {/* card */}
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className={`bg-[#111] border border-gray-800 p-8 rounded-xl w-[40%] ${
-                    isLeft ? "mr-auto" : "ml-auto"
+                <div
+                  className={`bg-[#111] border border-gray-800
+                  p-8 rounded-xl w-[40%] ${
+                    left?"mr-auto":"ml-auto"
                   }`}
                 >
 
@@ -221,24 +186,26 @@ export default function AboutPage() {
                     {item.text}
                   </p>
 
-                </motion.div>
+                </div>
 
-                {/* glowing dot */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  transition={{ duration: 0.4 }}
-                  className="absolute left-1/2 w-4 h-4 bg-yellow-400 rounded-full -translate-x-1/2 shadow-[0_0_20px_#facc15]"
-                />
+                <div className="absolute left-1/2 w-4 h-4 bg-yellow-400 rounded-full -translate-x-1/2"/>
 
               </motion.div>
+
             )
+
           })}
 
         </div>
 
       </section>
 
+
+
+  
+
     </main>
+
   )
+
 }

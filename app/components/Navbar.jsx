@@ -3,76 +3,93 @@
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
-import { ChevronDown, Menu, X } from "lucide-react"
 import { useState } from "react"
+import {
+  ChevronDown,
+  Video,
+  Clapperboard,
+  Megaphone,
+  Code,
+  Menu,
+  X
+} from "lucide-react"
 
 export default function Navbar() {
 
   const [open, setOpen] = useState(false)
-  const [mobile, setMobile] = useState(false)
+  const [mobileMenu, setMobileMenu] = useState(false)
+  const [mobileServices, setMobileServices] = useState(false)
 
-  const menu = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Portfolio", path: "/portfolio" },
-    { name: "Contact", path: "/contact" }
+  const services = [
+    {
+      title: "Video Editing",
+      desc: "Professional cinematic editing",
+      icon: Video,
+      link: "/services/video-editing"
+    },
+    {
+      title: "Animations",
+      desc: "2D / 3D motion graphics",
+      icon: Clapperboard,
+      link: "/services/animations"
+    },
+    {
+      title: "Digital Marketing",
+      desc: "SEO & social growth",
+      icon: Megaphone,
+      link: "/services/digital-marketing"
+    },
+    {
+      title: "Web Development",
+      desc: "Modern animated websites",
+      icon: Code,
+      link: "/services/web-development"
+    }
   ]
 
   return (
 
-    <div className="fixed top-6 left-0 w-full flex justify-center z-50">
-
-      {/* Floating Navbar */}
+    <div className="fixed top-6 left-0 w-full flex justify-center z-50 px-4">
 
       <motion.nav
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="flex items-center justify-between px-8 md:px-12 h-[65px] w-[95%] md:w-[1100px] rounded-full bg-black/70 backdrop-blur-xl border border-gray-800 shadow-[0_0_40px_rgba(0,0,0,0.4)]"
+        className="w-full max-w-[1200px] h-[70px] px-6 md:px-10 flex items-center justify-between rounded-full bg-black/70 backdrop-blur-xl border border-gray-800"
       >
 
         {/* LOGO */}
 
-        <motion.div whileHover={{ scale: 1.05 }}>
-
-          <Link href="/">
-            <Image
-              src="/hatsofflogo.png"
-              alt="Hatsoff Media"
-              width={110}
-              height={40}
-              className="h-[36px] w-auto"
-            />
-          </Link>
-
-        </motion.div>
-
+        <Link href="/">
+          <Image
+            src="/hatsofflogo.png"
+            alt="Hatsoff Media"
+            width={130}
+            height={40}
+            className="h-[36px] w-auto"
+          />
+        </Link>
 
 
         {/* DESKTOP MENU */}
 
-        <ul className="hidden md:flex items-center gap-8 text-sm font-medium">
+        <ul className="hidden md:flex items-center gap-10 text-gray-300 font-medium">
 
-          {menu.map((item, index) => (
-            <li key={index} className="relative group">
+          <Link href="/" className="hover:text-white transition">
+            Home
+          </Link>
 
-              <Link
-                href={item.path}
-                className="text-gray-300 group-hover:text-white transition"
-              >
-                {item.name}
-              </Link>
+          <Link href="/about" className="hover:text-white transition">
+            About
+          </Link>
 
-              {/* Hover bubble */}
+          <Link href="/portfolio" className="hover:text-white transition">
+            Portfolio
+          </Link>
 
-              <motion.span
-                layoutId="navbubble"
-                className="absolute left-0 -bottom-2 h-[2px] w-0 bg-yellow-400 group-hover:w-full transition-all"
-              />
-
-            </li>
-          ))}
-
+          <Link href="/blog" className="hover:text-white transition">
+            Blog
+          </Link>
 
 
           {/* SERVICES */}
@@ -83,11 +100,9 @@ export default function Navbar() {
             onMouseLeave={() => setOpen(false)}
           >
 
-            <button className="flex items-center gap-1 text-gray-300 hover:text-white">
-
+            <button className="flex items-center gap-1 hover:text-white transition">
               Services
               <ChevronDown size={16} />
-
             </button>
 
             <AnimatePresence>
@@ -95,44 +110,52 @@ export default function Navbar() {
               {open && (
 
                 <motion.div
-                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  initial={{ opacity: 0, y: 15, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute top-10 left-0 w-56 bg-[#111] border border-gray-800 rounded-xl p-4 shadow-xl"
+                  transition={{ duration: 0.25 }}
+                  className="absolute top-14 left-1/2 -translate-x-1/2 w-[850px] bg-[#0f0f0f] border border-gray-800 rounded-2xl p-8 shadow-2xl"
                 >
 
-                  <ul className="flex flex-col gap-3 text-gray-200">
+                  <div className="grid grid-cols-2 gap-6">
 
-                    <Link
-                      href="/services/video-editing"
-                      className="hover:text-yellow-400 transition"
-                    >
-                      Video Editing
-                    </Link>
+                    {services.map((service, i) => {
 
-                    <Link
-                      href="/services/animations"
-                      className="hover:text-yellow-400 transition"
-                    >
-                      Animations
-                    </Link>
+                      const Icon = service.icon
 
-                    <Link
-                      href="/services/digital-marketing"
-                      className="hover:text-yellow-400 transition"
-                    >
-                      Digital Marketing
-                    </Link>
+                      return (
 
-                    <Link
-                      href="/services/web-development"
-                      className="hover:text-yellow-400 transition"
-                    >
-                      Web Development
-                    </Link>
+                        <Link
+                          key={i}
+                          href={service.link}
+                          className="flex gap-4 items-start hover:bg-[#1a1a1a] p-4 rounded-xl transition"
+                        >
 
-                  </ul>
+                          <Icon
+                            size={30}
+                            className="text-yellow-400 mt-1"
+                          />
+
+                          <div>
+
+                            <h4 className="text-white font-semibold">
+                              {service.title}
+                            </h4>
+
+                            <p className="text-gray-400 text-sm">
+                              {service.desc}
+                            </p>
+
+                          </div>
+
+                        </Link>
+
+                      )
+
+                    })}
+
+                  </div>
+
                 </motion.div>
 
               )}
@@ -141,23 +164,27 @@ export default function Navbar() {
 
           </li>
 
+
+          <Link href="/contact" className="hover:text-white transition">
+            Contact
+          </Link>
+
         </ul>
 
 
-
-        {/* CTA */}
+        {/* CTA BUTTON */}
 
         <motion.div
           whileHover={{
             scale: 1.05,
-            boxShadow: "0px 0px 20px rgba(255,204,0,0.6)"
+            boxShadow: "0px 0px 20px rgba(255,204,0,0.5)"
           }}
           className="hidden md:block"
         >
 
           <Link
             href="/contact"
-            className="px-6 py-2 rounded-full bg-yellow-400 text-black text-sm font-semibold"
+            className="px-6 py-2 rounded-full bg-yellow-400 text-black font-semibold"
           >
             Start Project
           </Link>
@@ -165,46 +192,83 @@ export default function Navbar() {
         </motion.div>
 
 
-
         {/* MOBILE MENU BUTTON */}
 
         <button
-          onClick={() => setMobile(!mobile)}
+          onClick={() => setMobileMenu(!mobileMenu)}
           className="md:hidden text-white"
         >
-          {mobile ? <X size={28} /> : <Menu size={28} />}
+          {mobileMenu ? <X /> : <Menu />}
         </button>
-
 
       </motion.nav>
 
 
-
-      {/* MOBILE MENU PANEL */}
+      {/* MOBILE MENU */}
 
       <AnimatePresence>
 
-        {mobile && (
+        {mobileMenu && (
 
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="absolute top-[80px] w-[90%] bg-black border border-gray-800 rounded-xl p-8 md:hidden"
+            className="absolute top-[90px] w-[92%] bg-black border border-gray-800 rounded-xl p-6 md:hidden"
           >
 
-            <ul className="flex flex-col gap-6 text-center">
+            <ul className="flex flex-col gap-6 text-center text-lg">
 
-              {menu.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.path}
-                  onClick={() => setMobile(false)}
-                  className="text-lg"
-                >
-                  {item.name}
-                </Link>
-              ))}
+              <Link href="/" onClick={() => setMobileMenu(false)}>
+                Home
+              </Link>
+
+              <Link href="/about" onClick={() => setMobileMenu(false)}>
+                About
+              </Link>
+
+              <Link href="/portfolio" onClick={() => setMobileMenu(false)}>
+                Portfolio
+              </Link>
+
+              <Link href="/blog" onClick={() => setMobileMenu(false)}>
+                Blog
+              </Link>
+
+
+              {/* MOBILE SERVICES */}
+
+              <button
+                onClick={() => setMobileServices(!mobileServices)}
+                className="flex justify-center items-center gap-2"
+              >
+                Services <ChevronDown size={18}/>
+              </button>
+
+              {mobileServices && (
+
+                <div className="flex flex-col gap-4 text-gray-400">
+
+                  {services.map((service,i)=>(
+                    <Link
+                      key={i}
+                      href={service.link}
+                      onClick={() => setMobileMenu(false)}
+                    >
+                      {service.title}
+                    </Link>
+                  ))}
+
+                </div>
+
+              )}
+
+              <Link
+                href="/contact"
+                className="mt-4 px-6 py-3 bg-yellow-400 text-black rounded-full font-semibold"
+              >
+                Start Project
+              </Link>
 
             </ul>
 
@@ -213,7 +277,6 @@ export default function Navbar() {
         )}
 
       </AnimatePresence>
-
 
     </div>
 
