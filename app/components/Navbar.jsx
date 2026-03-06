@@ -100,10 +100,13 @@ export default function Navbar() {
             onMouseLeave={() => setOpen(false)}
           >
 
-            <button className="flex items-center gap-1 hover:text-white transition">
+            <Link
+              href="/services"
+              className="flex items-center gap-1 hover:text-white transition"
+            >
               Services
               <ChevronDown size={16} />
-            </button>
+            </Link>
 
             <AnimatePresence>
 
@@ -198,7 +201,7 @@ export default function Navbar() {
           onClick={() => setMobileMenu(!mobileMenu)}
           className="md:hidden text-white"
         >
-          {mobileMenu ? <X size={28}/> : <Menu size={28}/>}
+          {mobileMenu ? <X size={28} /> : <Menu size={28} />}
         </button>
 
       </motion.nav>
@@ -238,18 +241,19 @@ export default function Navbar() {
 
               {/* MOBILE SERVICES */}
 
-              <button
-                onClick={() => setMobileServices(!mobileServices)}
-                className="flex justify-center items-center gap-2"
+              <Link
+                href="/services"
+                className="flex items-center gap-1 hover:text-white transition"
               >
-                Services <ChevronDown size={18}/>
-              </button>
+                Services
+                <ChevronDown size={16} />
+              </Link>
 
               {mobileServices && (
 
                 <div className="flex flex-col gap-4 text-gray-400">
 
-                  {services.map((service,i)=>(
+                  {services.map((service, i) => (
                     <Link
                       key={i}
                       href={service.link}

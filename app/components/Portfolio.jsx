@@ -6,7 +6,7 @@ const projects = [
   {
     title: "Movie Poster Design",
     category: "Graphic Design",
-    image: "/poster.jpg"
+    image: "/logo.jpg"
   },
   {
     title: "Brand Logo Design",
