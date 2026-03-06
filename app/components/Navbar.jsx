@@ -49,13 +49,13 @@ export default function Navbar() {
 
   return (
 
-    <div className="fixed top-6 left-0 w-full flex justify-center z-50 px-4">
+    <div className="fixed top-4 left-0 right-0 z-50 px-4 flex justify-center">
 
       <motion.nav
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="w-full max-w-[1200px] h-[70px] px-6 md:px-10 flex items-center justify-between rounded-full bg-black/70 backdrop-blur-xl border border-gray-800"
+        className="w-full max-w-[1200px] h-[64px] px-5 md:px-10 flex items-center justify-between rounded-full bg-black/70 backdrop-blur-xl border border-gray-800 shadow-lg"
       >
 
         {/* LOGO */}
@@ -198,7 +198,7 @@ export default function Navbar() {
           onClick={() => setMobileMenu(!mobileMenu)}
           className="md:hidden text-white"
         >
-          {mobileMenu ? <X /> : <Menu />}
+          {mobileMenu ? <X size={28}/> : <Menu size={28}/>}
         </button>
 
       </motion.nav>
@@ -214,10 +214,10 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="absolute top-[90px] w-[92%] bg-black border border-gray-800 rounded-xl p-6 md:hidden"
+            className="absolute top-[80px] left-1/2 -translate-x-1/2 w-[92%] bg-black border border-gray-800 rounded-xl p-6 md:hidden shadow-xl"
           >
 
-            <ul className="flex flex-col gap-6 text-center text-lg">
+            <ul className="flex flex-col gap-6 text-center text-lg text-white">
 
               <Link href="/" onClick={() => setMobileMenu(false)}>
                 Home
@@ -279,6 +279,5 @@ export default function Navbar() {
       </AnimatePresence>
 
     </div>
-
   )
 }
