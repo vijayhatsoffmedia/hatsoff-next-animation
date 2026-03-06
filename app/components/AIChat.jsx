@@ -6,133 +6,136 @@ import { MessageCircle, X } from "lucide-react"
 
 export default function AIChat() {
 
-    const [message, setMessage] = useState("")
-    const [messages, setMessages] = useState([])
-    const [open, setOpen] = useState(false)
+  const [messages, setMessages] = useState([])
+  const [open, setOpen] = useState(false)
 
-    const sendMessage = async () => {
+  const answers = {
+    services: "Hatsoff Media offers Graphic Design, Video Editing, Animations, Digital Marketing and Web Development.",
+    pricing: "Pricing depends on the project. Contact us to get a custom quote for your business.",
+    portfolio: "You can view our portfolio in the Portfolio section of the website.",
+    contact: "You can contact Hatsoff Media via the contact page or WhatsApp for quick response.",
+    location: "Hatsoff Media operates from Chennai and works with clients worldwide."
+  }
 
-        if (!message) return
+  const askQuestion = (question) => {
 
-        const userMsg = { user: message }
+    let reply = "Please contact Hatsoff Media for more details."
 
-        setMessages(prev => [...prev, userMsg])
+    if (question === "What services do you offer?")
+      reply = answers.services
 
-        const res = await fetch("/api/ai", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ message })
-        })
+    if (question === "What is your pricing?")
+      reply = answers.pricing
 
-        const data = await res.json()
+    if (question === "Show portfolio")
+      reply = answers.portfolio
 
-        setMessages(prev => [...prev, { ai: data.reply }])
+    if (question === "How to contact you?")
+      reply = answers.contact
 
-        setMessage("")
-    }
+    if (question === "Where are you located?")
+      reply = answers.location
 
-    return (
+    setMessages(prev => [
+      ...prev,
+      { user: question },
+      { ai: reply }
+    ])
+  }
 
-        <>
+  const questions = [
+    "What services do you offer?",
+    "What is your pricing?",
+    "Show portfolio",
+    "How to contact you?",
+    "Where are you located?"
+  ]
 
-            {/* Floating Button */}
+  return (
 
-            <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setOpen(!open)}
-                className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-yellow-400 text-black flex items-center justify-center shadow-lg z-50"
-            >
+    <>
+      {/* Floating Button */}
 
-                {open ? <X /> : <MessageCircle />}
-
-            </motion.button>
-
-
-            {/* Chat Window */}
-
-            <AnimatePresence>
-
-                {open && (
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 80, scale: 0.9 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 80 }}
-                        transition={{ duration: 0.3 }}
-                        className="fixed bottom-24 right-6 w-80 bg-[#111] border border-gray-800 rounded-xl p-4 shadow-2xl z-50"
-                    >
-
-                        {/* Header */}
-
-                        <div className="flex justify-between items-center mb-3">
-
-                            <h3 className="font-semibold text-yellow-400">
-                                Hatsoff AI
-                            </h3>
-
-                        </div>
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={() => setOpen(!open)}
+        className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-yellow-400 text-black flex items-center justify-center shadow-lg z-50"
+      >
+        {open ? <X /> : <MessageCircle />}
+      </motion.button>
 
 
-                        {/* Messages */}
+      {/* Chat Window */}
 
-                        <div className="h-60 overflow-y-auto text-sm space-y-3 mb-4">
+      <AnimatePresence>
+        {open && (
 
-                            {messages.map((m, i) => (
-                                <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                >
+          <motion.div
+            initial={{ opacity: 0, y: 80, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 80 }}
+            transition={{ duration: 0.3 }}
+            className="fixed bottom-24 right-6 w-80 bg-[#111] border border-gray-800 rounded-xl p-4 shadow-2xl z-50"
+          >
 
-                                    {m.user && (
-                                        <div className="text-right">
-                                            <span className="bg-yellow-400 text-black px-3 py-1 rounded-lg inline-block">
-                                                {m.user}
-                                            </span>
-                                        </div>
-                                    )}
+            {/* Header */}
 
-                                    {m.ai && (
-                                        <div className="text-left">
-                                            <span className="bg-black border border-gray-700 px-3 py-1 rounded-lg inline-block text-gray-300">
-                                                {m.ai}
-                                            </span>
-                                        </div>
-                                    )}
-
-                                </motion.div>
-                            ))}
-
-                        </div>
+            <h3 className="font-semibold text-yellow-400 mb-3">
+              Hatsoff Assistant
+            </h3>
 
 
-                        {/* Input */}
+            {/* Messages */}
 
-                        <input
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
-                            placeholder="Ask about services..."
-                            className="w-full p-3 bg-black text-white border border-gray-700 rounded-lg outline-none focus:border-yellow-400 transition placeholder-gray-500"
-                        />
+            <div className="h-56 overflow-y-auto text-sm space-y-3 mb-4">
 
-                        <button
-                            onClick={sendMessage}
-                            className="w-full bg-yellow-400 text-black py-2 rounded font-medium"
-                        >
+              {messages.map((m, i) => (
+                <div key={i}>
 
-                            Ask
+                  {m.user && (
+                    <div className="text-right">
+                      <span className="bg-yellow-400 text-black px-3 py-1 rounded-lg inline-block">
+                        {m.user}
+                      </span>
+                    </div>
+                  )}
 
-                        </button>
+                  {m.ai && (
+                    <div className="text-left">
+                      <span className="bg-black border border-gray-700 px-3 py-1 rounded-lg inline-block text-gray-300">
+                        {m.ai}
+                      </span>
+                    </div>
+                  )}
 
-                    </motion.div>
+                </div>
+              ))}
 
-                )}
+            </div>
 
-            </AnimatePresence>
 
-        </>
-    )
+            {/* Question Buttons */}
+
+            <div className="flex flex-col gap-2">
+
+              {questions.map((q, i) => (
+                <button
+                  key={i}
+                  onClick={() => askQuestion(q)}
+                  className="text-left text-sm bg-black border border-gray-700 px-3 py-2 rounded hover:border-yellow-400 transition"
+                >
+                  {q}
+                </button>
+              ))}
+
+            </div>
+
+          </motion.div>
+
+        )}
+      </AnimatePresence>
+
+    </>
+  )
 }
